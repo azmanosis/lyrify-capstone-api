@@ -3,7 +3,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 // Unsure if required
-// const helmet = require("helmet");
+const helmet = require("helmet");
 
 // Import config
 require("dotenv").config();
