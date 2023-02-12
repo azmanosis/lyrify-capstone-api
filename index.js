@@ -3,6 +3,8 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const lyricsFinder = require('lyrics-finder');
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const axios = require("axios").default;
+const url = require("url");
 // Unsure if required
 const helmet = require("helmet");
 
