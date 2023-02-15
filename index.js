@@ -73,11 +73,11 @@ app.get('/lyrics', async (req, res) => {
 
     // const params = new url.URLSearchParams();
     // params.append("from", "es");
-    // params.append("from", "ar");
-    // params.append("from", "ko");
-    // params.append("from", "hi");
+    // // params.append("from", "ar");
+    // // params.append("from", "ko");
+    // // params.append("from", "hi");
     // params.append("to", "en");
-    // params.append("lyrics", lyrics);
+    // params.append("texts", `"español casa bonita"`);
 
     // let options = {
     //     method: "POST",
