@@ -3,6 +3,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 const lyricsFinder = require('lyrics-finder');
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const fs = require('fs');
 const axios = require("axios").default;
 const url = require("url");
 // Unsure if required
@@ -77,7 +78,7 @@ app.get('/lyrics', async (req, res) => {
     params.append("from", "ko");
     params.append("from", "hi");
     params.append("to", "en");
-    params.append("texts", lyrics);
+    params.append("text", lyrics);
 
     let options = {
         method: "POST",
@@ -104,31 +105,10 @@ app.get('/lyrics', async (req, res) => {
     res.json({ lyrics })
 })
 
-// // Translator
-// const params = new url.URLSearchParams();
-// params.append("from", "es");
-// params.append("from", "de");
-// params.append("to", "en");
-// params.append({ lyrics });
-
-// let options = {
-//     method: "POST",
-//     url: "https://lecto-translation.p.rapidapi.com/v1/translate/text",
-//     headers: {
-//         "content-type": "application/x-www-form-urlencoded",
-//         "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
-//         "x-rapidapi-key": process.env.TRANSLATEAPI_KEY,
-//     },
-//     data: params,
-// };
-
-// axios.request(options).then(function (response) {
-//     console.log(JSON.stringify(response.data));
-// }).catch(function (error) {
-//     console.error(error);
-// });
-
-// //Translate code ends ^^^^^^
+// function writeVideos(data) {
+//     const stringifiedData = JSON.stringify(data);
+//     fs.writeFileSync('./data/lyrics.json', stringifiedData)
+// }
 
 // Server
 app.listen(PORT, () => {
