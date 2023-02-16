@@ -71,6 +71,16 @@ app.post('/login', (req, res) => {
 
 app.get('/lyrics', async (req, res) => {
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "No Lyrics Found";
+    const timestamp = new Date().toISOString();
+
+    const lyricObject = {
+        artist: req.query.artist,
+        track: req.query.track,
+        lyrics: lyrics,
+        timestamp: timestamp
+    }
+
+    fs.appendFileSync('./data/lyrics.json', JSON.stringify(lyricObject) + '\n');
 
     // const params = new url.URLSearchParams();
     // params.append("from", "es");
@@ -104,16 +114,7 @@ app.get('/lyrics', async (req, res) => {
 
     res.json({ lyrics })
 
-    fs.writeFileSync('./data/lyrics.json', JSON.stringify(lyrics));
 })
-
-// async function writeLyrics(artist, track) {
-//     const lyrics = await lyricsFinder(artist, track) || "";
-//     const data = { lyrics };
-//     fs.writeFileSync('./data/lyrics.json', JSON.stringify(data));
-// }
-
-// writeLyrics("", "");
 
 // Server
 app.listen(PORT, () => {
