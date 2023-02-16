@@ -1,4 +1,5 @@
 const express = require("express");
+const { Translate } = require(`@google-cloud/translate`).v2
 const SpotifyWebApi = require('spotify-web-api-node');
 const lyricsFinder = require('lyrics-finder');
 const bodyParser = require("body-parser");
@@ -8,6 +9,18 @@ const axios = require("axios").default;
 const url = require("url");
 // Unsure if required
 const helmet = require("helmet");
+
+// // Google Cloud Translator
+// // Credentials
+// const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
+
+// // Configuration for client
+// const translate = new Translate({
+//     credentials: CREDENTIALS,
+//     projectId: CREDENTIALS.project_id
+// });
+// // -----------------
+
 
 // Import config
 require("dotenv").config();
@@ -74,7 +87,6 @@ app.get('/lyrics', async (req, res) => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
     const timing = new Intl.DateTimeFormat('en-US', options);
     const timestamp = timing.format(new Date());
-    // const timestamp = new Date().toLocalString("en-US");
 
     const lyricObject = {
         timestamp: timestamp,
@@ -118,6 +130,26 @@ app.get('/lyrics', async (req, res) => {
     res.json({ lyrics })
 
 })
+
+// // Translation via Google Cloud Translation
+// const translateText = async (text, targetLanguage) => {
+//     try {
+//         let response = await translate.translate(text, targetLanguage);
+//         return response;
+//     } catch (err) {
+//         console.log(`Error at detectLanguage --> ${err}`);
+//         return 0;
+//     }
+// }
+
+// translateText('Oggi è lunedì', 'en')
+//     .then((res) => {
+//         console.log(res);
+//     }).catch((err) => {
+//         console.log(err);
+//     });
+
+//     // Ends Here
 
 // app.put("/lyrics/:artist/:track", (req, res) => {
 //     const artist = req.params.artist;
