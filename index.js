@@ -71,13 +71,16 @@ app.post('/login', (req, res) => {
 
 app.get('/lyrics', async (req, res) => {
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "No Lyrics Found";
-    const timestamp = new Date().toISOString();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+    const timing = new Intl.DateTimeFormat('en-US', options);
+    const timestamp = timing.format(new Date());
+    // const timestamp = new Date().toLocalString("en-US");
 
     const lyricObject = {
+        timestamp: timestamp,
         artist: req.query.artist,
         track: req.query.track,
-        lyrics: lyrics,
-        timestamp: timestamp
+        lyrics: lyrics
     }
 
     fs.appendFileSync('./data/lyrics.json', JSON.stringify(lyricObject) + '\n');
@@ -115,6 +118,25 @@ app.get('/lyrics', async (req, res) => {
     res.json({ lyrics })
 
 })
+
+// app.put("/lyrics/:artist/:track", (req, res) => {
+//     const artist = req.params.artist;
+//     const track = req.params.track;
+//     const lyrics = req.params.lyrics;
+
+//     // Read the existing content of file
+//     const fileContents = fs.readFileSync('./data/lyrics.json', 'utf8');
+//     const data = JSON.parse(fileContents);
+
+//     const objectIndex = data.findIndex(obj => obj.artist === artist && obj.track === track);
+//     if (objectIndex === -1) {
+//         return res.status(404);
+//     }
+
+//     data[objectIndex].lyrics = lyrics;
+
+//     fs.writeFileSync('./data/lyrics.json', JSON.stringify(data));
+// })
 
 // Server
 app.listen(PORT, () => {
