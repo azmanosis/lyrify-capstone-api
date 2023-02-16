@@ -72,43 +72,48 @@ app.post('/login', (req, res) => {
 app.get('/lyrics', async (req, res) => {
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "No Lyrics Found";
 
-    const params = new url.URLSearchParams();
-    params.append("from", "es");
-    params.append("from", "ar");
-    params.append("from", "ko");
-    params.append("from", "hi");
-    params.append("to", "en");
-    params.append("text", lyrics);
+    // const params = new url.URLSearchParams();
+    // params.append("from", "es");
+    // params.append("from", "ar");
+    // params.append("from", "ko");
+    // params.append("from", "hi");
+    // params.append("to", "en");
+    // params.append("text", lyrics);
 
-    let options = {
-        method: "POST",
-        url: "https://lecto-translation.p.rapidapi.com/v1/translate/text",
-        headers: {
-            "content-type": "application/x-www-form-urlencoded",
-            "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
-            "x-rapidapi-key": process.env.TRANSLATEAPI_KEY,
-        },
-        data: params,
-    };
+    // let options = {
+    //     method: "POST",
+    //     url: "https://lecto-translation.p.rapidapi.com/v1/translate/text",
+    //     headers: {
+    //         "content-type": "application/x-www-form-urlencoded",
+    //         "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
+    //         "x-rapidapi-key": process.env.TRANSLATEAPI_KEY,
+    //     },
+    //     data: params,
+    // };
 
-    axios.request(options)
-        .then(function (response) {
-            res.json({
-                lyrics, translation: response.data
-            });
-        })
-        .catch(function (error) {
-            console.error(error);
-            res.sendStatus(500);
-        });
+    // axios.request(options)
+    //     .then(function (response) {
+    //         res.json({
+    //             lyrics, translation: response.data
+    //         });
+    //     })
+    //     .catch(function (error) {
+    //         console.error(error);
+    //         res.sendStatus(500);
+    //     });
 
     res.json({ lyrics })
+
+    fs.writeFileSync('./data/lyrics.json', JSON.stringify(lyrics));
 })
 
-// function writeVideos(data) {
-//     const stringifiedData = JSON.stringify(data);
-//     fs.writeFileSync('./data/lyrics.json', stringifiedData)
+// async function writeLyrics(artist, track) {
+//     const lyrics = await lyricsFinder(artist, track) || "";
+//     const data = { lyrics };
+//     fs.writeFileSync('./data/lyrics.json', JSON.stringify(data));
 // }
+
+// writeLyrics("", "");
 
 // Server
 app.listen(PORT, () => {
