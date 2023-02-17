@@ -10,23 +10,20 @@ const url = require("url");
 // Unsure if required
 const helmet = require("helmet");
 
-// // Google Cloud Translator
-// // Credentials
-// const CREDENTIALS = JSON.parse(process.env.CREDENTIALS);
-
-// // Configuration for client
-// const translate = new Translate({
-//     credentials: CREDENTIALS,
-//     projectId: CREDENTIALS.project_id
-// });
-// // -----------------
-
-
 // Import config
 require("dotenv").config();
 const PORT = process.env.PORT || 8080;
 
 const app = express();
+
+// Your Credentials
+const CREDENTIALS = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
+// Configuration for the client
+const translate = new Translate({
+    credentials: CREDENTIALS,
+    projectId: CREDENTIALS.project_id
+});
 
 // Set Security Configs
 app.use(helmet());
@@ -83,7 +80,8 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/lyrics', async (req, res) => {
-    const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "No Lyrics Found";
+    const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Sorry, this search didn't generate any lyrics";
+    const translation = await translateText(lyrics, "en") || "Sorry, this search didn't generate any lyrics";
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
     const timing = new Intl.DateTimeFormat('en-US', options);
     const timestamp = timing.format(new Date());
@@ -92,64 +90,29 @@ app.get('/lyrics', async (req, res) => {
         timestamp: timestamp,
         artist: req.query.artist,
         track: req.query.track,
-        lyrics: lyrics
+        lyrics: lyrics,
+        translation: translation
     }
 
     fs.appendFileSync('./data/lyrics.json', JSON.stringify(lyricObject) + '\n');
 
-    // const params = new url.URLSearchParams();
-    // params.append("from", "es");
-    // params.append("from", "ar");
-    // params.append("from", "ko");
-    // params.append("from", "hi");
-    // params.append("to", "en");
-    // params.append("text", lyrics);
-
-    // let options = {
-    //     method: "POST",
-    //     url: "https://lecto-translation.p.rapidapi.com/v1/translate/text",
-    //     headers: {
-    //         "content-type": "application/x-www-form-urlencoded",
-    //         "x-rapidapi-host": "lecto-translation.p.rapidapi.com",
-    //         "x-rapidapi-key": process.env.TRANSLATEAPI_KEY,
-    //     },
-    //     data: params,
-    // };
-
-    // axios.request(options)
-    //     .then(function (response) {
-    //         res.json({
-    //             lyrics, translation: response.data
-    //         });
-    //     })
-    //     .catch(function (error) {
-    //         console.error(error);
-    //         res.sendStatus(500);
-    //     });
-
-    res.json({ lyrics })
+    res.json({ lyrics: translation })
 
 })
 
-// // Translation via Google Cloud Translation
-// const translateText = async (text, targetLanguage) => {
-//     try {
-//         let response = await translate.translate(text, targetLanguage);
-//         return response;
-//     } catch (err) {
-//         console.log(`Error at detectLanguage --> ${err}`);
-//         return 0;
-//     }
-// }
+const translateText = async (text, targetLanguage) => {
 
-// translateText('Oggi è lunedì', 'en')
-//     .then((res) => {
-//         console.log(res);
-//     }).catch((err) => {
-//         console.log(err);
-//     });
+    try {
+        let [response] = await translate.translate(text, targetLanguage);
+        // console.log(response)
+        return response;
+    } catch (error) {
+        console.log(`Error at translateText --> ${error}`);
+        return 0;
+    }
+}
 
-//     // Ends Here
+
 
 // app.put("/lyrics/:artist/:track", (req, res) => {
 //     const artist = req.params.artist;
