@@ -96,7 +96,8 @@ app.get('/lyrics', async (req, res) => {
 
     fs.appendFileSync('./data/lyrics.json', JSON.stringify(lyricObject) + '\n');
 
-    res.json({ lyrics: translation })
+    res.json({ lyrics, "translation": translation })
+    // res.json({ lyrics: translation })
 
 })
 
