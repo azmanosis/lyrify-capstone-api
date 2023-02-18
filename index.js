@@ -5,8 +5,6 @@ const lyricsFinder = require('lyrics-finder');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const fs = require('fs');
-const axios = require("axios").default;
-const url = require("url");
 // Unsure if required
 const helmet = require("helmet");
 
@@ -48,10 +46,8 @@ app.post('/refresh', (req, res) => {
                 accessToken: data.body.accessToken,
                 expiresIn: data.body.expiresIn,
             })
-            // console.log(data.body);
         })
         .catch((err) => {
-            // console.log(err)
             res.sendStatus(400)
         })
 })
@@ -74,7 +70,6 @@ app.post('/login', (req, res) => {
             })
         })
         .catch((err) => {
-            // console.log(err)
             res.sendStatus(400)
         })
 })
@@ -97,7 +92,6 @@ app.get('/lyrics', async (req, res) => {
     fs.appendFileSync('./data/lyrics.json', JSON.stringify(lyricObject) + '\n');
 
     res.json({ lyrics, "translation": translation })
-    // res.json({ lyrics: translation })
 
 })
 
@@ -105,7 +99,6 @@ const translateText = async (text, targetLanguage) => {
 
     try {
         let [response] = await translate.translate(text, targetLanguage);
-        // console.log(response)
         return response;
     } catch (error) {
         console.log(`Error at translateText --> ${error}`);
