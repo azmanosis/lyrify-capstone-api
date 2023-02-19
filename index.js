@@ -30,6 +30,15 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
+const readLyrics = () => {
+    return JSON.parse(fs.readFileSync("./data/lyrics.json", "utf-8", (err) => {
+        if (err) {
+            return;
+        }
+    })
+    );
+};
+
 app.post('/refresh', (req, res) => {
     const refreshToken = req.body.refreshToken
     const spotifyApi = new SpotifyWebApi({
@@ -76,7 +85,13 @@ app.post('/login', (req, res) => {
 
 app.get('/lyrics', async (req, res) => {
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Sorry, this search didn't generate any lyrics";
-    const translation = await translateText(lyrics, "en") || "Sorry, this search didn't generate any lyrics";
+    const translation = await translateText(lyrics, 'en');
+    // const matchinglyrics = readLyrics.find(req.query.artist === artist && req.query.track === track);
+    // if (matchinglyrics) {
+    //     const translation = matchinglyrics.lyrics;
+    // } else {
+    // const translation = await translateText(lyrics, "en") || "Sorry, this search didn't generate any lyrics";
+    // }
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
     const timing = new Intl.DateTimeFormat('en-US', options);
     const timestamp = timing.format(new Date());
@@ -95,13 +110,31 @@ app.get('/lyrics', async (req, res) => {
 
 })
 
-const translateText = async (text, targetLanguage) => {
+// const translateText = async (text, targetLanguage) => {
+
+//     try {
+//         let [response] = await translate.translate(text, targetLanguage);
+//         return response;
+//     } catch (error) {
+//         console.log(`Error at translateText --> ${error}`);
+//         return 0;
+//     }
+// }
+
+const translateText = async (text) => {
+
+    const [detection] = await translate.detect(text);
+    const detectedLanguage = detection.language;
+
+    if (detectedLanguage === 'en') {
+        return null;
+    }
 
     try {
-        let [response] = await translate.translate(text, targetLanguage);
+        const [response] = await translate.translate(text, 'en');
         return response;
-    } catch (error) {
-        console.log(`Error at translateText --> ${error}`);
+    } catch (err) {
+        console.log(`Error at translateText --> ${err}`);
         return 0;
     }
 }
