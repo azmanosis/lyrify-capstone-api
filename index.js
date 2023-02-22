@@ -84,14 +84,8 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/lyrics', async (req, res) => {
-    const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Sorry, this search didn't generate any lyrics";
+    const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Woah! where did you find this song?  i am still searching";
     const translation = await translateText(lyrics, 'en');
-    // const matchinglyrics = readLyrics.find(req.query.artist === artist && req.query.track === track);
-    // if (matchinglyrics) {
-    //     const translation = matchinglyrics.lyrics;
-    // } else {
-    // const translation = await translateText(lyrics, "en") || "Sorry, this search didn't generate any lyrics";
-    // }
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
     const timing = new Intl.DateTimeFormat('en-US', options);
     const timestamp = timing.format(new Date());
@@ -109,17 +103,6 @@ app.get('/lyrics', async (req, res) => {
     res.json({ lyrics, "translation": translation })
 
 })
-
-// const translateText = async (text, targetLanguage) => {
-
-//     try {
-//         let [response] = await translate.translate(text, targetLanguage);
-//         return response;
-//     } catch (error) {
-//         console.log(`Error at translateText --> ${error}`);
-//         return 0;
-//     }
-// }
 
 const translateText = async (text) => {
 
