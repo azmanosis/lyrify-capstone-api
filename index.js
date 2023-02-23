@@ -75,6 +75,11 @@ app.post('/login', (req, res) => {
 })
 
 const readLyrics = () => {
+
+    // if (!fs.existsSync('./data/lyrics.json')) {
+    //     fs.writeFileSync('./data/lyrics.json', "[]");
+    // }
+
     return JSON.parse(fs.readFileSync("./data/lyrics.json", "utf-8", (err) => {
         if (err) {
             return;
@@ -84,8 +89,8 @@ const readLyrics = () => {
 };
 
 app.get('/lyrics', async (req, res) => {
-    const datalyric = readLyrics();
-    const findlyrics = datalyric.find(({ artist, track }) => artist === req.query.artist && track === req.query.track);
+    const dataLyric = readLyrics();
+    const findLyrics = dataLyric.find(({ artist, track }) => artist === req.query.artist && track === req.query.track);
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Woah! where did you find this song?  i am still searching";
     const translation = await translateText(lyrics, 'en');
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
@@ -100,11 +105,11 @@ app.get('/lyrics', async (req, res) => {
         translation: translation
     }
 
-    if (findlyrics !== undefined) {
-        return res.json(findlyrics)
-    } else if (findlyrics === undefined) {
-        datalyric.push(lyricObject);
-        fs.writeFile('./data/lyrics.json', JSON.stringify(datalyric), (err) => {
+    if (findLyrics !== undefined) {
+        return res.json(findLyrics)
+    } else if (findLyrics === undefined) {
+        dataLyric.push(lyricObject);
+        fs.writeFile('./data/lyrics.json', JSON.stringify(dataLyric), (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).send("Server Error");
