@@ -85,30 +85,34 @@ const readLyrics = () => {
 
 app.get('/lyrics', async (req, res) => {
     const datalyric = readLyrics();
-    const searchlyrics = datalyric.find(({ artist, track }) => artist === req.query.artist && track === req.query.track);
+    const findlyrics = datalyric.find(({ artist, track }) => artist === req.query.artist && track === req.query.track);
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Woah! where did you find this song?  i am still searching";
     const translation = await translateText(lyrics, 'en');
-    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-    // const timing = new Intl.DateTimeFormat('en-US', options);
-    // const timestamp = timing.format(new Date());
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+    const timing = new Intl.DateTimeFormat('en-US', options);
+    const timestamp = timing.format(new Date());
 
-    // const lyricObject = {
-    //     timestamp: timestamp,
-    //     artist: req.query.artist,
-    //     track: req.query.track,
-    //     lyrics: lyrics,
-    //     translation: translation
-    // }
-
-    if (searchlyrics !== undefined) {
-        return res.json(searchlyrics)
-    } else if (searchlyrics === undefined) {
-        return res.json({ "lyrics": lyrics, "translation": translation });
+    const lyricObject = {
+        timestamp: timestamp,
+        artist: req.query.artist,
+        track: req.query.track,
+        lyrics: lyrics,
+        translation: translation
     }
 
-    // fs.writeFile('./data/lyrics.json', JSON.stringify(datalyric));
-
-})
+    if (findlyrics !== undefined) {
+        return res.json(findlyrics)
+    } else if (findlyrics === undefined) {
+        datalyric.push(lyricObject);
+        fs.writeFile('./data/lyrics.json', JSON.stringify(datalyric), (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send("Server Error");
+            }
+            return res.json({ "lyrics": lyrics, "translation": translation });
+        });
+    }
+});
 
 const translateText = async (text) => {
 
