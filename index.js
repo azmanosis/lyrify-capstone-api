@@ -30,15 +30,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
-const readLyrics = () => {
-    return JSON.parse(fs.readFileSync("./data/lyrics.json", "utf-8", (err) => {
-        if (err) {
-            return;
-        }
-    })
-    );
-};
-
 app.post('/refresh', (req, res) => {
     const refreshToken = req.body.refreshToken
     const spotifyApi = new SpotifyWebApi({
@@ -83,24 +74,39 @@ app.post('/login', (req, res) => {
         })
 })
 
+const readLyrics = () => {
+    return JSON.parse(fs.readFileSync("./data/lyrics.json", "utf-8", (err) => {
+        if (err) {
+            return;
+        }
+    })
+    );
+};
+
 app.get('/lyrics', async (req, res) => {
+    const datalyric = readLyrics();
+    const searchlyrics = datalyric.find(({ artist, track }) => artist === req.query.artist && track === req.query.track);
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Woah! where did you find this song?  i am still searching";
     const translation = await translateText(lyrics, 'en');
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-    const timing = new Intl.DateTimeFormat('en-US', options);
-    const timestamp = timing.format(new Date());
+    // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+    // const timing = new Intl.DateTimeFormat('en-US', options);
+    // const timestamp = timing.format(new Date());
 
-    const lyricObject = {
-        timestamp: timestamp,
-        artist: req.query.artist,
-        track: req.query.track,
-        lyrics: lyrics,
-        translation: translation
+    // const lyricObject = {
+    //     timestamp: timestamp,
+    //     artist: req.query.artist,
+    //     track: req.query.track,
+    //     lyrics: lyrics,
+    //     translation: translation
+    // }
+
+    if (searchlyrics !== undefined) {
+        return res.json(searchlyrics)
+    } else if (searchlyrics === undefined) {
+        return res.json({ "lyrics": lyrics, "translation": translation });
     }
 
-    fs.appendFileSync('./data/lyrics.json', JSON.stringify(lyricObject) + '\n');
-
-    res.json({ lyrics, "translation": translation })
+    // fs.writeFile('./data/lyrics.json', JSON.stringify(datalyric));
 
 })
 
