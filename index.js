@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8080;
 
 const app = express();
 
-// Your Credentials
+// Your Google Translate Credentials
 const CREDENTIALS = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
 // Configuration for the client
@@ -29,6 +29,42 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 
+// the function below reads lyrics from the growing request library
+const readLyrics = () => {
+
+    // if (!fs.existsSync('./data/lyrics.json')) {
+    //     fs.writeFileSync('./data/lyrics.json', "[]");
+    // }
+
+    return JSON.parse(fs.readFileSync("./data/lyrics.json", "utf-8", (err) => {
+        if (err) {
+            return;
+        }
+    })
+    );
+};
+
+// the function below detects language and translates text from any langugage other than English.
+const translateText = async (text) => {
+
+    const [detection] = await translate.detect(text);
+    const detectedLanguage = detection.language;
+
+    if (detectedLanguage === 'en') {
+        return null;
+    }
+
+    try {
+        const [response] = await translate.translate(text, 'en');
+        return response;
+    } catch (err) {
+        console.log(`Error at translateText --> ${err}`);
+        return 0;
+    }
+};
+
+
+// Request to refresh token every 10 minutes
 app.post('/refresh', (req, res) => {
     const refreshToken = req.body.refreshToken
     const spotifyApi = new SpotifyWebApi({
@@ -51,6 +87,7 @@ app.post('/refresh', (req, res) => {
         })
 })
 
+// Spotify login request
 app.post('/login', (req, res) => {
     const code = req.body.code
     const spotifyApi = new SpotifyWebApi({
@@ -73,20 +110,10 @@ app.post('/login', (req, res) => {
         })
 })
 
-const readLyrics = () => {
-
-    // if (!fs.existsSync('./data/lyrics.json')) {
-    //     fs.writeFileSync('./data/lyrics.json', "[]");
-    // }
-
-    return JSON.parse(fs.readFileSync("./data/lyrics.json", "utf-8", (err) => {
-        if (err) {
-            return;
-        }
-    })
-    );
-};
-
+// the below get request checks for three items:
+// 1) read and post the data from lyrics.json file to the client side.
+// 2) if no lyrics found then search the lyrics via lyricfinder and translate lyrics, post both data to client.
+// 3) write the lyrics newly searched via lyricfinder and save in lyrics.json file
 app.get('/lyrics', async (req, res) => {
     const dataLyric = readLyrics();
     const findLyrics = dataLyric.find(({ artist, track }) => artist === req.query.artist && track === req.query.track);
@@ -117,24 +144,6 @@ app.get('/lyrics', async (req, res) => {
         });
     }
 });
-
-const translateText = async (text) => {
-
-    const [detection] = await translate.detect(text);
-    const detectedLanguage = detection.language;
-
-    if (detectedLanguage === 'en') {
-        return null;
-    }
-
-    try {
-        const [response] = await translate.translate(text, 'en');
-        return response;
-    } catch (err) {
-        console.log(`Error at translateText --> ${err}`);
-        return 0;
-    }
-}
 
 
 
