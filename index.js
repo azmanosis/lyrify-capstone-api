@@ -5,7 +5,6 @@ const lyricsFinder = require('lyrics-finder');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const fs = require('fs');
-// Unsure if required
 const helmet = require("helmet");
 
 // Import config
