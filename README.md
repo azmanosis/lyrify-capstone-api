@@ -31,13 +31,13 @@
 
 # <p align="center"><strong>Google Cloud Key Will Require You To Link Your Credit Card</strong></p>
 
-<p align="center">Your Credit Card may however not be charged</p></br>
+<p align="center">Your Credit Card however may not be charged</p></br>
 
 # Get The API
 
 ### Spotify
 
-To get started, go to link and set up a [Spotify APP](https://developer.spotify.com/dashboard/applications)
+To get started, set up a [Spotify APP](https://developer.spotify.com/dashboard/applications)
 
 > Application Name: <strong>Lyrify</strong></br>
 > Please note the `Client ID` and the `Client Secret`</br>
@@ -51,15 +51,15 @@ Further explanation for Spotify Dashboard is provided here [Spotify Dashboard](h
 To get started, go to link [Google Cloud](https://console.cloud.google.com/home/dashboard)
 
 > Click on New Project</br>
-> Next click the Hamburger Menu and go to `API & Services` then `Enabled API & Services`</br>
-> Search for `Cloud Translation` select and `Enable`</br>
+> Next click the ☰ and go to `API & Services` then `Enabled API & Services`</br>
+> Search for `Cloud Translation` and select `Enable`</br>
 > Enable `Billing` and select your billing account</br>
 > Go to `IAM & Admin` and then to `Service Account`</br>
 > Create a `Service Account`</br>
 > Under `Grant this service account access to project` – `Role`</br>
 > Choose `Cloud Translation API Admin` and then click `Done`</br>
 > Click the `⋮` then `Manage Keys`</br>
-> Select `ADD KEY` then `Create new key`
+> Select `ADD KEY` then `Create new key`</br>
 > Keep default `JSON` selected and `Create`
 
 The above steps will generate a Google Cloud Translation API Key
