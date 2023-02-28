@@ -32,10 +32,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // the function below reads lyrics from the growing request library
 const readLyrics = () => {
 
-    // if (!fs.existsSync('./data/lyrics.json')) {
-    //     fs.writeFileSync('./data/lyrics.json', "[]");
-    // }
-
     return JSON.parse(fs.readFileSync("./data/lyrics.json", "utf-8", (err) => {
         if (err) {
             return;
@@ -144,27 +140,6 @@ app.get('/lyrics', async (req, res) => {
         });
     }
 });
-
-
-
-// app.put("/lyrics/:artist/:track", (req, res) => {
-//     const artist = req.params.artist;
-//     const track = req.params.track;
-//     const lyrics = req.params.lyrics;
-
-//     // Read the existing content of file
-//     const fileContents = fs.readFileSync('./data/lyrics.json', 'utf8');
-//     const data = JSON.parse(fileContents);
-
-//     const objectIndex = data.findIndex(obj => obj.artist === artist && obj.track === track);
-//     if (objectIndex === -1) {
-//         return res.status(404);
-//     }
-
-//     data[objectIndex].lyrics = lyrics;
-
-//     fs.writeFileSync('./data/lyrics.json', JSON.stringify(data));
-// })
 
 // Server
 app.listen(PORT, () => {
