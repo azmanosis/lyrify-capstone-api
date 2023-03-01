@@ -59,6 +59,10 @@ const translateText = async (text) => {
     }
 };
 
+const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
+const timing = new Intl.DateTimeFormat('en-US', options);
+const timestamp = timing.format(new Date());
+
 
 // Request to refresh token every 10 minutes
 app.post('/refresh', (req, res) => {
@@ -115,9 +119,6 @@ app.get('/lyrics', async (req, res) => {
     const findLyrics = dataLyric.find(({ artist, track }) => artist === req.query.artist && track === req.query.track);
     const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Woah! where did you find this song?  i am still searching";
     const translation = await translateText(lyrics, 'en');
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true };
-    const timing = new Intl.DateTimeFormat('en-US', options);
-    const timestamp = timing.format(new Date());
 
     const lyricObject = {
         timestamp: timestamp,
@@ -143,5 +144,5 @@ app.get('/lyrics', async (req, res) => {
 
 // Server
 app.listen(PORT, () => {
-    console.log(`App running on Port #${PORT}`);
+    console.log(`This app was deployed at timestamp: ${timestamp} on Port ${PORT}`);
 });
