@@ -66,7 +66,6 @@ The above steps will generate a Google Cloud Translation API Key
 
 Further explanantion for Google Cloud Translation API is provided here [Google Cloud Translation Doc](https://cloud.google.com/translate/docs)
 </br>
-</br>
 
 # How To Install
 
@@ -98,6 +97,8 @@ $ npm start
 
 ## Congratulations your API's are now set up!</br>
 
+Please continue to the [Client Side](https://github.com/azmanosis/lyrify-capstone) to begin application.
+
 </br>
 
 # Tech Dependencies
@@ -107,6 +108,8 @@ Installed via `npm install` in previous step</br>
 <a href="https://www.npmjs.com/package/dotenv" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/motdotla/dotenv/master/dotenv.svg" height="30"/></a>
 <a href="https://www.npmjs.com/package/express" target="_blank" rel="noreferrer"><img src="https://camo.githubusercontent.com/0566752248b4b31b2c4bdc583404e41066bd0b6726f310b73e1140deefcc31ac/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67" height="30"/></a>
 <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><img src="https://cdn.freebiesupply.com/logos/large/2x/nodejs-1-logo-png-transparent.png" height="30"/></a></br>
+
+<p>google-cloud translate, helmet, lyrics-finder and spotify-web-api</p>
 </br>
 
 # Credits:
