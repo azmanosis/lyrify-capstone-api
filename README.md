@@ -18,20 +18,20 @@
 
 # Motivation
 
-<p>Music is the language without barriers, in recent years, we are seeing an uptrend in the appeal to the global artist, BTS, a Korean boy band, who achieved international success & exposure and have their music played across radio stations worldwide. Even 'Macarena' was charting as a top dance song among non-native language speakers, back in 1995. Though these are great songs, unless you are native to the language, it is difficult to understand the meaning behind the song's lyrics. In contrast, English songs often generate a strong sense of curiosity among listeners, as they are intended to be understood and appreciated through their lyrics. A few notable examples are SAINt JHN - Roses (Imanbek Remix)</br></br>Lyrify offers a comprehensive solution to bridge the gap by displaying the lyrics for every song searched via Spotify. In addition, Lyrify offers translation for non-English songs to facilitate a deeper understanding of the thoughts and emotions conveyed via the music. This innovative platform promises to enhance the listening experience broader audience, promoting greater cultural exchange and appreciation in the global music community.</p></br>
+<p>Music is the language without barriers, in recent years, we are seeing an uptrend of this in the music we listen to, BTS, a Korean boy band is considered a high achiever of having their music play across radio stations globally. Back in 2002, Macarena was charting as top dance song. Though the songs are great, unless you are native to the language, it is difficult to understand what is the meaning behind the song's lyrics. On the otherside we have English songs, whose lyrics everyone is curious to learn as the artist of the song intended to write. An example of this is SAINt JHN - Roses (Imanbek Remix)</br></br>Lyrify will help bridge that gap by displaying the lyrics for every song searched via Spotify as well for the non-english songs, provide a translation so everyone can read the thoughts conveyed via the music.</p>
 
 # Key Features
 
 <p> Lyrics and Translation for non-english song are displayed simultaneously or seperately based on requirement of the user</p>
 <p>API calls are made only when song search is Unique. If Song is found in JSON, Lyrify displays from the JSON instead of calling API</p>
 <p>Translation API is called and only occurs for non-english songs</p>
-<p> Spotify Web Player automatically expires after 10 minutes, thereby limiting potential API calls</p></br>
+<p> Spotify Web Player automatically expires after 10 minutes, thereby limiting potential API calls</p>
 
 # <p align="center"><strong> A Valid Spotify Premium Account is Required</strong></p>
 
 # <p align="center"><strong>Google Cloud Key Will Require You To Link Your Credit Card</strong></p>
 
-<p align="center">Your Credit Card however may not be charged</p></br>
+<p align="center">Your Credit Card however may not be charged</p>
 
 # Get The API
 
@@ -66,7 +66,6 @@ The above steps will generate a Google Cloud Translation API Key
 
 Further explanantion for Google Cloud Translation API is provided here [Google Cloud Translation Doc](https://cloud.google.com/translate/docs)
 </br>
-</br>
 
 # How To Install
 
@@ -98,7 +97,7 @@ $ npm start
 
 ## Congratulations your API's are now set up!</br>
 
-</br>
+Please continue to the [Client Side](https://github.com/azmanosis/lyrify-capstone) to begin application.
 
 # Tech Dependencies
 
@@ -107,7 +106,8 @@ Installed via `npm install` in previous step</br>
 <a href="https://www.npmjs.com/package/dotenv" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/motdotla/dotenv/master/dotenv.svg" height="30"/></a>
 <a href="https://www.npmjs.com/package/express" target="_blank" rel="noreferrer"><img src="https://camo.githubusercontent.com/0566752248b4b31b2c4bdc583404e41066bd0b6726f310b73e1140deefcc31ac/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67" height="30"/></a>
 <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><img src="https://cdn.freebiesupply.com/logos/large/2x/nodejs-1-logo-png-transparent.png" height="30"/></a></br>
-</br>
+
+<p>google-cloud translate, helmet, lyrics-finder and spotify-web-api</p>
 
 # Credits:
 
