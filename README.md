@@ -18,20 +18,20 @@
 
 # Motivation
 
-<p>Music is the language without barriers, in recent years, we are seeing an uptrend of this in the music we listen to, BTS, a Korean boy band is considered a high achiever of having their music play across radio stations globally. Back in 2002, Macarena was charting as top dance song. Though the songs are great, unless you are native to the language, it is difficult to understand what is the meaning behind the song's lyrics. On the otherside we have English songs, whose lyrics everyone is curious to learn as the artist of the song intended to write. An example of this is SAINt JHN - Roses (Imanbek Remix)</br></br>Lyrify will help bridge that gap by displaying the lyrics for every song searched via Spotify as well for the non-english songs, provide a translation so everyone can read the thoughts conveyed via the music.</p></br>
+<p>Music is the language without barriers, in recent years, we are seeing an uptrend of this in the music we listen to, BTS, a Korean boy band is considered a high achiever of having their music play across radio stations globally. Back in 2002, Macarena was charting as top dance song. Though the songs are great, unless you are native to the language, it is difficult to understand what is the meaning behind the song's lyrics. On the otherside we have English songs, whose lyrics everyone is curious to learn as the artist of the song intended to write. An example of this is SAINt JHN - Roses (Imanbek Remix)</br></br>Lyrify will help bridge that gap by displaying the lyrics for every song searched via Spotify as well for the non-english songs, provide a translation so everyone can read the thoughts conveyed via the music.</p>
 
 # Key Features
 
 <p> Lyrics and Translation for non-english song are displayed simultaneously or seperately based on requirement of the user</p>
 <p>API calls are made only when song search is Unique. If Song is found in JSON, Lyrify displays from the JSON instead of calling API</p>
 <p>Translation API is called and only occurs for non-english songs</p>
-<p> Spotify Web Player automatically expires after 10 minutes, thereby limiting potential API calls</p></br>
+<p> Spotify Web Player automatically expires after 10 minutes, thereby limiting potential API calls</p>
 
 # <p align="center"><strong> A Valid Spotify Premium Account is Required</strong></p>
 
 # <p align="center"><strong>Google Cloud Key Will Require You To Link Your Credit Card</strong></p>
 
-<p align="center">Your Credit Card however may not be charged</p></br>
+<p align="center">Your Credit Card however may not be charged</p>
 
 # Get The API
 
@@ -99,8 +99,6 @@ $ npm start
 
 Please continue to the [Client Side](https://github.com/azmanosis/lyrify-capstone) to begin application.
 
-</br>
-
 # Tech Dependencies
 
 Installed via `npm install` in previous step</br>
@@ -110,7 +108,6 @@ Installed via `npm install` in previous step</br>
 <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><img src="https://cdn.freebiesupply.com/logos/large/2x/nodejs-1-logo-png-transparent.png" height="30"/></a></br>
 
 <p>google-cloud translate, helmet, lyrics-finder and spotify-web-api</p>
-</br>
 
 # Credits:
 
