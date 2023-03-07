@@ -1,5 +1,5 @@
 const express = require("express");
-// const mysql = require('mysql');
+const mysql = require('mysql2/promise');
 const { Translate } = require(`@google-cloud/translate`).v2
 const SpotifyWebApi = require('spotify-web-api-node');
 const lyricsFinder = require('lyrics-finder');
@@ -28,23 +28,8 @@ app.use(helmet());
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// const pool = mysql.createPool({
-//     host: 'localhost',
-//     user: process.env.USER,
-//     password: process.env.PASSWORD,
-//     database: process.env.DATABASE
-// })
-
-// function insertLyricsAndTranslation(artist, track, lyrics, translation) {
-//     const query = `INSERT INTO song_lyrics (artist, track, lyrics, translation) VALUES (?,?,?,?)`;
-//     pool.query(query, [artist, track, lyrics, translation], (error, results, fields) => {
-//         if (error) {
-//             console.error('Error inserting lyrics and translation:', error);
-//         }
-//     });
-// }
 
 // the function below reads lyrics from the growing request library
 const readLyrics = () => {
@@ -138,8 +123,22 @@ app.get('/lyrics', async (req, res) => {
     // const artist = req.query.artist;
     // const track = req.query.track;
 
-    const lyrics = await lyricsFinder(artist, track) || "Woah! where did you find this song?  i am still searching";
+    const lyrics = await lyricsFinder(req.query.artist, req.query.track) || "Woah! where did you find this song?  i am still searching";
     const translation = await translateText(lyrics, 'en');
+
+    const connection = await mysql.createConnection({
+        host: 'localhost',
+        user: process.env.USER,
+        password: process.env.PASSWORD,
+        database: process.env.DATABASE
+    });
+
+    const sql = 'INSERT INTO song_lyrics (artist, track, lyrics, translation, timestamp) VALUES (?,?,?,?,?)';
+
+    const values = [req.query.artist, req.query.track, lyrics, translation, timestamp];
+
+    await connection.execute(sql, values);
+    console.log('Data inserted successfully!');
 
     // insertLyricsAndTranslation(artist, track, lyrics, translation);
 
