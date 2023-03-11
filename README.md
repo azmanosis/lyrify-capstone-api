@@ -13,6 +13,7 @@
     <a href="#get-the-api">Get The API</a> • 
     <a href="#how-to-install">How To Install</a> • 
     <a href="#tech-dependencies">Tech Dependencies</a> • 
+    <a href="#next-steps">Next Steps</a> • 
     <a href="#credits">Credits</a>
 </p></br>
 
@@ -22,16 +23,26 @@
 
 # Key Features
 
+<p align="center"><a href="https://github.com/azmanosis/lyrify-capstone">Client Side</a></p>
 <p> Lyrics and Translation for non-english song are displayed simultaneously or seperately based on requirement of the user</p>
+<p>Search displays upto 20 results for user to find the right song</p>
+<p> Spotify Web Player allows user to connect to devices other than the Web Player, example: Mobile or Google Speaker</p></br>
+
+---
+
+<p align="center">Server Side</p>
 <p>API calls are made only when song search is Unique. If Song is found in JSON, Lyrify displays from the JSON instead of calling API</p>
 <p>Translation API is called and only occurs for non-english songs</p>
-<p> Spotify Web Player automatically expires after 10 minutes, thereby limiting potential API calls</p>
+<p> Spotify Web Player automatically expires after 10 minutes, thereby limiting potential API calls</p></br>
+
+---
 
 # <p align="center"><strong> A Valid Spotify Premium Account is Required</strong></p>
 
 # <p align="center"><strong>Google Cloud Key Will Require You To Link Your Credit Card</strong></p>
 
 <p align="center">Your Credit Card however may not be charged</p>
+</br>
 
 # Get The API
 
@@ -45,6 +56,7 @@ To get started, set up a [Spotify APP](https://developer.spotify.com/dashboard/a
 > Save
 
 Further explanation for Spotify Dashboard is provided here [Spotify Dashboard](https://developer.spotify.com/documentation/general/guides/authorization/app-settings/)
+</br>
 
 ### Google Cloud Translate
 
@@ -97,7 +109,7 @@ $ npm start
 
 ## Congratulations your API's are now set up!</br>
 
-Please continue to the [Client Side](https://github.com/azmanosis/lyrify-capstone) to begin application.
+Please continue to the [Client Side](https://github.com/azmanosis/lyrify-capstone) to begin application.</br>
 
 # Tech Dependencies
 
@@ -108,6 +120,21 @@ Installed via `npm install` in previous step</br>
 <a href="https://nodejs.org/en/" target="_blank" rel="noreferrer"><img src="https://cdn.freebiesupply.com/logos/large/2x/nodejs-1-logo-png-transparent.png" height="30"/></a></br>
 
 <p>google-cloud translate, helmet, lyrics-finder and spotify-web-api</p>
+
+</br>
+
+# Next Steps
+
+While the Lyrify app is certainly enjoyable, there are some aspects that could be optimized to make it even more engaging and satisfying for users.
+
+Here are a few ideas i'd like to implement to enhance your experience on Lyrify.
+
+> Allow lyrify to listen and identify music by using its microphone feature. Currently it is limited to voice input.</br>
+> Set up a database for the numerous request passed to Lyrify.</br>
+> Allow users to add and edit their own lyrics, therby expanding the database and not relying on the API entirely.</br>
+> Allow users to switch translation into any language of their choice instead of the default English.
+
+</br>
 
 # Credits:
 
