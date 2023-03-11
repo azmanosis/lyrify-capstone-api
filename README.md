@@ -31,7 +31,6 @@
 ---
 
 <p align="center">Server Side</p>
-<p> Lyrics and Translation for non-english song are displayed simultaneously or seperately based on requirement of the user</p>
 <p>API calls are made only when song search is Unique. If Song is found in JSON, Lyrify displays from the JSON instead of calling API</p>
 <p>Translation API is called and only occurs for non-english songs</p>
 <p> Spotify Web Player automatically expires after 10 minutes, thereby limiting potential API calls</p></br>
