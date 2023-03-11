@@ -42,7 +42,8 @@
 # <p align="center"><strong>Google Cloud Key Will Require You To Link Your Credit Card</strong></p>
 
 <p align="center">Your Credit Card however may not be charged</p>
-</br>
+
+---
 
 # Get The API
 
