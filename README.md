@@ -133,7 +133,8 @@ Here are a few ideas i'd like to implement to enhance your experience on Lyrify.
 > Allow lyrify to listen and identify music by using its microphone feature. Currently it is limited to voice input.</br>
 > Set up a database for the numerous request passed to Lyrify.</br>
 > Allow users to add and edit their own lyrics, therby expanding the database and not relying on the API entirely.</br>
-> Allow users to switch translation into any language of their choice instead of the default English.
+> Allow users to switch translation into any language of their choice instead of the default English.</br>
+> Add more pages that allow users to explore their curated Spotify Playlist for easier choosing of songs
 
 </br>
 
